@@ -43,4 +43,14 @@ app.use(function(err, req, res, next) {
   res.render('error');
 });
 
+// start server
+const port = process.env.PORT || 3000;
+app.listen(port, (err) => {
+  if (err) {
+    console.error(err);
+  } else {
+    console.log('dog diary server listening on port', 3000, '!');
+  }
+});
+
 module.exports = app;
