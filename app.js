@@ -5,6 +5,9 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 
+var { responseClient } = require('./routes/utils');
+global.response = responseClient;
+
 var index = require('./routes/index');
 var users = require('./routes/users');
 
@@ -34,11 +37,11 @@ app.use(function(req, res, next) {
 
 // error handler
 app.use(function(err, req, res, next) {
+  const code = err.status || 500;
+  const message = req.app.get('env') === 'development' ? err.message : '';
   const error = req.app.get('env') === 'development' ? { 'code' : err.status, 'message' : err.message } : {};
 
-  // render the error page
-  res.status(err.status || 500);
-  res.send(error);
+  global.response(res, code, code, message, error);
 });
 
 // start server
