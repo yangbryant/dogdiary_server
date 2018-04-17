@@ -4,6 +4,11 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+var bluebird = require('bluebird');
+
+var mongoose = require('mongoose');
+global.mongoose = mongoose;
+global.mongoose.Promise = bluebird;
 
 var { responseClient } = require('./routes/utils');
 global.response = responseClient;
@@ -44,14 +49,26 @@ app.use(function(err, req, res, next) {
   global.response(res, code, code, message, error);
 });
 
-// start server
+
 const port = process.env.PORT || 3000;
-app.listen(port, (err) => {
+
+// start server
+global.mongoose.connect('mongodb://127.0.0.1:27017/doggy', (err) => {
   if (err) {
     console.error(err);
-  } else {
-    console.log('dog diary server listening on port', port, '!');
+    return;
   }
-});
+  console.info('connect database server success!');
+
+  app.listen(port, (err) => {
+    if (err) {
+      console.error(err);
+      return;
+    }
+    console.info('dog diary server listening on port', port, '!');
+  });
+}); 
+
+
 
 module.exports = app;
