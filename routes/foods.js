@@ -48,7 +48,7 @@ router.get('/findFoodByName', function(req, res) {
 /* 查询数据库响应请求的接口方法 */
 const foodfind = function(key, res) {
   Food.find(key, '_id name category eat detail').then(data => {
-    global.response(res, 200, 0, 'Success!', {list: data});
+    global.response(res, 200, 200, 'Success!', {list: data});
   }).cancel( err => {
     global.response(res);
   })
@@ -71,7 +71,7 @@ router.get('/addFood', function(req, res) {
 
   new Food({ name, name_pinyin: name, category, eat, detail, updated }).save().then( data => {
     const jsonData = { Food: name };
-    global.response(res, 200, 0, 'Success!', jsonData);
+    global.response(res, 200, 200, 'Success!', jsonData);
   }).cancel( err => {
     global.response(res);
   })
@@ -87,9 +87,9 @@ router.get('/deleteFood', function(req, res) {
 
   Food.remove({ _id }).then( result => {
     if (result.n == 1) {
-      global.response(res, 200, 0, '删除成功!');
+      global.response(res, 200, 200, '删除成功!');
     } else {
-      global.response(res, 200, 1, '此用户不存在!');
+      global.response(res, 200, 204, '此用户不存在!');
     }
   }).cancel( err => {
     global.response(res);

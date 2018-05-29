@@ -6,7 +6,7 @@ const User = require('../models/user')
 /* GET users listing. */
 router.get('/', function(req, res) {
   User.find(null, 'name').then(data => {
-    global.response(res, 200, 0, 'Success!', {list: data});
+    global.response(res, 200, 200, 'Success!', {list: data});
   }).cancel( err => {
     global.response(res);
   })
@@ -19,7 +19,7 @@ router.get('/findUser', function(req, res) {
     return;
   }
   User.find({name: {$regex: name}}, 'name').then(data => {
-    global.response(res, 200, 0, 'Success!', {result: data});
+    global.response(res, 200, 200, 'Success!', {result: data});
   }).cancel( err => {
     global.response(res);
   })
@@ -34,7 +34,7 @@ router.get('/addUser', function(req, res) {
 
   new User({ name }).save().then( data => {
     const jsonData = { User: name };
-    global.response(res, 200, 0, 'Success!', jsonData);
+    global.response(res, 200, 200, 'Success!', jsonData);
   }).cancel( err => {
     global.response(res);
   })
@@ -49,9 +49,9 @@ router.get('/deleteUser', function(req, res) {
 
   User.remove({ _id }).then( result => {
     if (result.n == 1) {
-      global.response(res, 200, 0, '删除成功!');
+      global.response(res, 200, 200, '删除成功!');
     } else {
-      global.response(res, 200, 1, '此用户不存在!');
+      global.response(res, 200, 204, '此用户不存在!');
     }
   }).cancel( err => {
     global.response(res);

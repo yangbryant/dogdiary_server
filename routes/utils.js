@@ -1,5 +1,5 @@
 
-const responseClient = (res, httpCode = 500, code = 3, message = '', data = {}) => {
+const responseClient = (res, httpCode = 500, code = 500, message = '', data = {}) => {
   let responseData = {};
   responseData.code = code;
   responseData.message = message;
