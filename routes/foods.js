@@ -47,7 +47,7 @@ router.get('/findFoodByName', function(req, res) {
 
 /* 查询数据库响应请求的接口方法 */
 const foodfind = function(key, res) {
-  Food.find(key, '_id name category eat detail').then(data => {
+  Food.find(key, '_id name category eat logo detail').then(data => {
     global.response(res, 200, 200, 'Success!', {list: data});
   }).cancel( err => {
     global.response(res);
@@ -69,7 +69,7 @@ router.get('/addFood', function(req, res) {
 
   const updated = Date.parse(new Date())/1000;
 
-  new Food({ name, name_pinyin: name, category, eat, detail, updated }).save().then( data => {
+  new Food({ name, name_pinyin: name, category, eat, detail, updated, logo: 'null' }).save().then( data => {
     const jsonData = { Food: name };
     global.response(res, 200, 200, 'Success!', jsonData);
   }).cancel( err => {
