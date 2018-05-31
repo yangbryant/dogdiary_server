@@ -5,11 +5,13 @@ category: 0:所有食物; 1:水果; 2:蔬菜; 3:主食; 4:菌类; 5:肉蛋; 6:�
 */
 const FoodSchema = new global.mongoose.Schema({
   name: String,
+  alias: String,
   name_pinyin: String,
   category: Number,
   eat: Number, // 除了能吃不能吃,还有可以吃一点等情况
   logo: String,
   updated: Number, // 更新时间戳
+  title: String,
   detail: String
 });
 

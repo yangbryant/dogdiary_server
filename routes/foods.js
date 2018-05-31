@@ -47,7 +47,7 @@ router.get('/findFoodByName', function(req, res) {
 
 /* 查询数据库响应请求的接口方法 */
 const foodfind = function(key, res) {
-  Food.find(key, '_id name category eat logo detail').then(data => {
+  Food.find(key, '_id name alias category eat logo title detail').then(data => {
     global.response(res, 200, 200, 'Success!', {list: data});
   }).cancel( err => {
     global.response(res);
@@ -60,16 +60,19 @@ router.get('/addFood', function(req, res) {
   const name = req.query.name || null;
   const category = req.query.category || null;
   const eat = req.query.eat || null;
-  const detail = req.query.detail || null;
+  const title = req.query.title || null;
 
-  if (!name || !category || !eat || !detail) {
+  const alias = req.query.alias || null;
+  const detail = req.query.detail || title;
+
+  if (!name || !category || !eat || !title) {
     global.response(res, 400);
     return;
   }
 
   const updated = Date.parse(new Date())/1000;
 
-  new Food({ name, name_pinyin: name, category, eat, detail, updated, logo: 'null' }).save().then( data => {
+  new Food({ name, alias, name_pinyin: name, category, eat, title, detail, updated, logo: 'null' }).save().then( data => {
     const jsonData = { Food: name };
     global.response(res, 200, 200, 'Success!', jsonData);
   }).cancel( err => {
