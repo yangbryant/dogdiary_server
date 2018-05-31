@@ -72,7 +72,7 @@ router.get('/addFood', function(req, res) {
 
   const updated = Date.parse(new Date())/1000;
 
-  new Food({ name, alias, name_pinyin: name, category, eat, title, detail, updated, logo: 'null' }).save().then( data => {
+  new Food({ name, alias, name_pinyin: name, category, eat, title, detail, updated, logo: null }).save().then( data => {
     const jsonData = { Food: name };
     global.response(res, 200, 200, 'Success!', jsonData);
   }).cancel( err => {
