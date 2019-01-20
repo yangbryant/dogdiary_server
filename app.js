@@ -5,6 +5,7 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var bluebird = require('bluebird');
+var config = require('config-lite')(__dirname);
 
 var mongoose = require('mongoose');
 global.mongoose = mongoose;
@@ -51,23 +52,20 @@ app.use(function(err, req, res, next) {
   global.response(res, code, code, message, error);
 });
 
-
-const port = process.env.PORT || 3000;
-
 // start server
-global.mongoose.connect('mongodb://127.0.0.1:27017/doggy', (err) => {
+global.mongoose.connect(config.url, (err) => {
   if (err) {
     console.error(err);
     return;
   }
   console.info('connect database server success!');
 
-  app.listen(port, (err) => {
+  app.listen(config.port, (err) => {
     if (err) {
       console.error(err);
       return;
     }
-    console.info('dog diary server listening on port', port, '!');
+    console.info('dog diary server listening on port', config.port, '!');
   });
 }); 
 
