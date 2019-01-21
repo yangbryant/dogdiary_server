@@ -25,10 +25,10 @@ var app = express();
 app.use(cookieParser());
 const mongoStore = connectMongo(session);
 app.use(session({
-    name: config.session.name,
-    secret: config.session.secret,
-    store: new mongoStore({ url: config.url }),
-    cookie: config.session.cookie,
+  name: config.session.name,
+  secret: config.session.secret,
+  store: new mongoStore({ url: config.url }),
+  cookie: config.session.cookie,
 }));
 
 // uncomment after placing your favicon in /public
@@ -40,17 +40,17 @@ app.use(express.static(path.join(__dirname, 'public')));
 router(app);
 
 // catch 404 and forward to error handler
-app.use(function(req, res, next) {
+app.use(function (req, res, next) {
   var err = new Error('Not Found');
   err.status = 404;
   next(err);
 });
 
 // error handler
-app.use(function(err, req, res, next) {
+app.use(function (err, req, res, next) {
   const code = err.status || 500;
   const message = req.app.get('env') === 'development' ? err.message : '';
-  const error = req.app.get('env') === 'development' ? { 'code' : err.status, 'message' : err.message } : {};
+  const error = req.app.get('env') === 'development' ? { 'code': err.status, 'message': err.message } : {};
 
   global.response(res, code, code, message, error);
 });
@@ -70,8 +70,6 @@ global.mongoose.connect(config.url, (err) => {
     }
     global.logger.info('dog diary server listening on port', config.port, '!');
   });
-}); 
-
-
+});
 
 module.exports = app;
