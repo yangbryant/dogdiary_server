@@ -1,10 +1,11 @@
-var express = require('express');
-var router = express.Router();
+var home = require('./home');
+var users = require('./users');
+var foods = require('./foods');
 
-/* GET home page. */
-router.get('/', function(req, res, next) {
-  const jsonData = { Welcome: '狗狗日记' };
-  global.response(res, 200, 200, 'Success!', jsonData);
-});
+module.exports = (app) => {
 
-module.exports = router;
+  app.use('/', home);
+  app.use('/users', users);
+  app.use('/foods', foods);
+
+}
