@@ -2,7 +2,7 @@ const UserModel = require('../models/user');
 
 class Users {
 
-  rootUser = (req, res, next) => {
+  usersList = (req, res, next) => {
     UserModel.find(null, 'name').then(data => {
       global.response(res, 200, 200, 'Success!', {
         list: data
@@ -48,6 +48,10 @@ class Users {
     }).cancel(err => {
       global.response(res);
     })
+  }
+
+  updateUser = (req, res, next) => {
+
   }
 
   deleteUser = (req, res, next) => {

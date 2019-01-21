@@ -1,11 +1,9 @@
 var home = require('./home');
-var users = require('./users');
-var foods = require('./foods');
+var v1 = require('./v1');
 
 module.exports = (app) => {
 
   app.use('/', home);
-  app.use('/users', users);
-  app.use('/foods', foods);
+  app.use('/v1', v1);
 
 }
